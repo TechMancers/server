@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-
+const userRoutes = require('./src/routes/userRoutes');
 
 const app = express();
 app.use(cors());
@@ -17,6 +17,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization,uploadType, folder, subfolder');
     next();
 });
+
+app.use('/user', userRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port${port}`);
