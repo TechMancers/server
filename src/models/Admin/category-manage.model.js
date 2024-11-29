@@ -46,7 +46,7 @@ class BookCategories {
   }
 
   static async getBookCount(category_id) {
-    const query = `SELECT COUNT(*) AS bookCount FROM books WHERE category_id = ?`;
+    const query = `SELECT COUNT(*) AS bookCount FROM book WHERE category_id = ?`;
     const [rows] = await db.execute(query, [category_id]);
     return rows[0].bookCount;
   }
