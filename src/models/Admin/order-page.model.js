@@ -1,9 +1,9 @@
-import { query } from '../database';
+const db = require("../../utils/database");
 
 class PurchaseHistoryModel {
   // Method to get all purchase histories
   static async getAllPurchases() {
-    const [rows] = await query('SELECT * FROM `purchase_history`');
+    const [rows] = await query('SELECT * FROM `kiyawanalk.purchase_history`');
     return rows;
   }
 

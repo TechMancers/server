@@ -1,12 +1,12 @@
-const mysql = require('mysql2');
+import { createPool } from 'mysql2';
 
-const config = require('../config/db.config.json');
+import { host as _host, user as _user, database as _database, password as _password } from '../config/db.config.json';
 
-const pool = mysql.createPool({
-  host: config.host,
-  user: config.user,
-  database: config.database,
-  password: config.password,
+const pool = createPool({
+  host: _host,
+  user: _user,
+  database: _database,
+  password: _password,
 });
 
-module.exports = pool.promise();
+export default pool.promise();
