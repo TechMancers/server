@@ -1,15 +1,20 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+import express from 'express';
+import { json, urlencoded } from 'body-parser';
+import cors from 'cors';
 
+import categoryManageRoutes from './src/routes/Admin/category-manage.routes';
+import userManageRoutes from './src/routes/Admin/user-manage.routes';
+import orderPageRoutes from './src/routes/Admin/order-page.routes';
 
+import errorHandler from './src/middlewares/errorHandler';
 
 const app = express();
 app.use(cors());
 
 const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -18,6 +23,9 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/book-categories', categoryManageRoutes);
+app.use('/manage-users', userManageRoutes);
+
 app.listen(port, () => {
-    console.log(`Server is running on port${port}`);
+    console.log(`Server is running on port ${port}`);
 })
