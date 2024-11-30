@@ -6,15 +6,18 @@ import categoryManageRoutes from './src/routes/Admin/category-manage.routes';
 import userManageRoutes from './src/routes/Admin/user-manage.routes';
 import orderPageRoutes from './src/routes/Admin/order-page.routes';
 
-import errorHandler from './src/middlewares/errorHandler';
+const categoryManageRoutes = require('./src/routes/Admin/category-manage.routes');
+const userManageRoutes = require('./src/routes/Admin/user-manage.routes');
+
+const errorHandler = require('./src/middlewares/errorHandler');
 
 const app = express();
 app.use(cors());
 
 const port = process.env.PORT || 3000;
 
-app.use(json());
-app.use(urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
