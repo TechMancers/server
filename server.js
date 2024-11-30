@@ -7,6 +7,7 @@ const profilepageRouter = require('./src/routes/Customer/profile-page.routes');
 const editProfileRouter = require('./src/routes/Customer/edit-profile.routes');
 const purchaseHistoryRouter = require('./src/routes/Customer/purchasehistory.routes');
 const wishlistRouter = require('./src/routes/Customer/wishlist.routes');
+const searchBookRouter = require('./src/routes/Customer/search-book.routes');
 
 
 const app = express();
@@ -28,6 +29,7 @@ app.use('/profile-page', profilepageRouter);
 app.use('/edit-profile', editProfileRouter);
 app.use('/purchasehistory', purchaseHistoryRouter);
 app.use('/wishlist', wishlistRouter);
+app.use('/search-book', searchBookRouter);
 
 
 
