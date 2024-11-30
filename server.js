@@ -3,18 +3,11 @@ import { json, urlencoded } from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import categoryManageRoutes from './src/routes/Admin/category-manage.routes.js';
-import userManageRoutes from './src/routes/Admin/user-manage.routes';
-import orderPageRoutes from './src/routes/Admin/order-page.routes';
+const categoryManageRoutes = require('./src/routes/Admin/category-manage.routes');
+const userManageRoutes = require('./src/routes/Admin/user-manage.routes');
+const orderManageRoutes = require('./src/routes/Admin/order-manage.routes');
 
-// Janani's routes
-import profilepageRouter from './src/routes/Customer/profile-page.routes';
-import editProfileRouter from './src/routes/Customer/edit-profile.routes';
-import purchaseHistoryRouter from './src/routes/Customer/purchasehistory.routes';
-import wishlistRouter from './src/routes/Customer/wishlist.routes';
-import errorHandler from './src/middlewares/errorHandler';
-
-dotenv.config();
+const errorHandler = require('./src/middlewares/errorHandler');
 
 const app = express();
 app.use(cors());
@@ -42,11 +35,8 @@ app.use('/wishlist', wishlistRouter);
 // Admin routes
 app.use('/book-categories', categoryManageRoutes);
 app.use('/manage-users', userManageRoutes);
+app.use('/manage-orders', orderManageRoutes);
 
-// Error handling middleware
-app.use(errorHandler);
-
-// Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
