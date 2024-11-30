@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const categoryManageRoutes = require('./src/routes/Admin/category-manage.routes');
 const userManageRoutes = require('./src/routes/Admin/user-manage.routes');
+const orderManageRoutes = require('./src/routes/Admin/order-manage.routes');
 
 const errorHandler = require('./src/middlewares/errorHandler');
 
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use('/book-categories', categoryManageRoutes);
 app.use('/manage-users', userManageRoutes);
+app.use('/manage-orders', orderManageRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
