@@ -5,4 +5,4 @@ const CustomerWishListController = require("../../controllers/Customer/wishlist.
 // Route to get wishlist for a specific user
 router.get("/:userId", CustomerWishListController.getCustomerWishList);
 
-module.exports = router;
+export default wishListRoutes;

@@ -1,15 +1,15 @@
-const { BookCategories } = require("../../models/Admin/category-manage.model");
+import { BookCategories } from "../../models/Admin/category-manage.model";
 
-exports.getCategories = async (req, res) => {
+export async function getCategories(req, res) {
   try {
     const categories = await BookCategories.getCategories();
     res.status(200).json(categories);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-};
+}
 
-exports.createCategory = async (req, res) => {
+export async function createCategory(req, res) {
   const { category_name } = req.body;
   try {
     const result = await BookCategories.createCategory(category_name);
@@ -21,9 +21,9 @@ exports.createCategory = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-};
+}
 
-exports.updateCategory = async (req, res) => {
+export async function updateCategory(req, res) {
   const { category_id, category_name } = req.body;
 
   if (!category_id || !category_name) {
@@ -54,9 +54,9 @@ exports.updateCategory = async (req, res) => {
       error: error.message,
     });
   }
-};
+}
 
-exports.deleteCategory = async (req, res) => {
+export async function deleteCategory(req, res) {
     const { category_id } = req.body;
 
     if (!category_id) {
@@ -95,5 +95,5 @@ exports.deleteCategory = async (req, res) => {
             error: error.message,
         });
     }
-};
+}
 

@@ -4,4 +4,4 @@ const orderManageController = require('../../controllers/Admin/order-manage.cont
 
 router.get('/get-orders', orderManageController.getOrders); // Fix here
 
-module.exports = router;
+export default orderManageRoutes;

@@ -4,4 +4,4 @@ const editProfileController = require('../../controllers/Customer/edit-profile.c
 
 router.put('/:userId', editProfileController.updateProfile);
 
-module.exports = router;
+export default editProfileRoutes;

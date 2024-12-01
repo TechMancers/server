@@ -5,4 +5,4 @@ const CustomerProfile = require('../../controllers/Customer/profile-page.control
 router.get('/:userId', CustomerProfile.getAllCustomers);
 
 
-module.exports = router;
+export default profilePageRoutes;

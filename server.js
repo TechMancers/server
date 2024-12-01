@@ -1,17 +1,22 @@
 import express from 'express';
-import { json, urlencoded } from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-const categoryManageRoutes = require('./src/routes/Admin/category-manage.routes');
-const userManageRoutes = require('./src/routes/Admin/user-manage.routes');
-const orderManageRoutes = require('./src/routes/Admin/order-manage.routes');
+// Import routes
+import categoryManageRoutes from './src/routes/Admin/category-manage.routes.js';
+import userManageRoutes from './src/routes/Admin/user-manage.routes.js';
+import orderManageRoutes from './src/routes/Admin/order-manage.routes.js';
+import profilepageRouter from './src/routes/Customer/profile-page.routes.js';
+import editProfileRouter from './src/routes/Customer/edit-profile.routes.js';
+import wishlistRouter from './src/routes/Customer/wishlist.routes.js';
 
-const errorHandler = require('./src/middlewares/errorHandler');
+// Import middleware
+import errorHandler from './src/middlewares/errorHandler.js';
+
+// Initialize dotenv
+dotenv.config();
 
 const app = express();
-app.use(cors());
-
 const port = process.env.PORT || 3000;
 
 // Middleware
@@ -19,14 +24,18 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Set headers for CORS
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, uploadType, folder, subfolder');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Content-Type, Authorization, uploadType, folder, subfolder'
+    );
     next();
 });
 
-// Janani's routes
+// User routes
 app.use('/profile-page', profilepageRouter);
 app.use('/edit-profile', editProfileRouter);
 app.use('/purchasehistory', purchaseHistoryRouter);
@@ -37,6 +46,10 @@ app.use('/book-categories', categoryManageRoutes);
 app.use('/manage-users', userManageRoutes);
 app.use('/manage-orders', orderManageRoutes);
 
+// Error handling middleware
+app.use(errorHandler);
+
+// Start server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

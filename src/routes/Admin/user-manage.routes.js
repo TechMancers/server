@@ -10,4 +10,4 @@ router.delete('/users/:userId', userManageController.deleteUser);
 router.patch('/users/:userId/suspend', userManageController.suspendUser);
 
 
-module.exports = router;
+export default userManageRoutes;

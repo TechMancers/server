@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const categoryManageController = require('../../controllers/Admin/category-manage.controller');
+
+import categoryManageController  from'../../controllers/Admin/category-manage.controller';
 // const verifyToken = require('../../middleware/verifyToken');
 
 router.get('/get-categories', categoryManageController.getCategories);
@@ -8,4 +9,4 @@ router.post('/create-category', categoryManageController.createCategory);
 router.put('/update-category', categoryManageController.updateCategory);
 router.delete('/delete-category', categoryManageController.deleteCategory);
 
-module.exports = router;
+export default categoryManageRoutes;
