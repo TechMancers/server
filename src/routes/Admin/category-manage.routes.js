@@ -10,3 +10,4 @@ router.put('/update-category', categoryManageController.updateCategory);
 router.delete('/delete-category', categoryManageController.deleteCategory);
 
 export default categoryManageRoutes;
+

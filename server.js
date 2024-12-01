@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -15,14 +16,31 @@ import errorHandler from './src/middlewares/errorHandler.js';
 
 // Initialize dotenv
 dotenv.config();
+=======
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
+//janani
+const profilepageRouter = require('./src/routes/Customer/profile-page.routes');
+const editProfileRouter = require('./src/routes/Customer/edit-profile.routes');
+const purchaseHistoryRouter = require('./src/routes/Customer/purchasehistory.routes');
+const wishlistRouter = require('./src/routes/Customer/wishlist.routes');
+const searchBookRouter = require('./src/routes/Customer/search-book.routes')
+
+>>>>>>> 4a336067bd12afe8aa8d69602422ad2256ac6e9c
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+<<<<<<< HEAD
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+=======
+app.use(bodyParser.json());
+>>>>>>> 4a336067bd12afe8aa8d69602422ad2256ac6e9c
 
 // Set headers for CORS
 app.use((req, res, next) => {
@@ -40,11 +58,15 @@ app.use('/profile-page', profilepageRouter);
 app.use('/edit-profile', editProfileRouter);
 app.use('/purchasehistory', purchaseHistoryRouter);
 app.use('/wishlist', wishlistRouter);
+<<<<<<< HEAD
 
 // Admin routes
 app.use('/book-categories', categoryManageRoutes);
 app.use('/manage-users', userManageRoutes);
 app.use('/manage-orders', orderManageRoutes);
+=======
+app.use('/search-book', searchBookRouter);
+>>>>>>> 4a336067bd12afe8aa8d69602422ad2256ac6e9c
 
 // Error handling middleware
 app.use(errorHandler);
