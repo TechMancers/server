@@ -1,4 +1,4 @@
-const { ManageUsers } = require("../../models/Admin/user-manage.model");
+const { ManageUsers } = require("../../models/Admin/admin.model");
 
 exports.fetchUsers = async (req, res) => {
   const { search = "", isActive = null, isBanned = null, isSuspended = null, role = null, page = 1, limit = 10  } = req.query;
@@ -167,7 +167,6 @@ exports.suspendUser = async (req, res) => {
     });
   }
 };
-
 
 exports.deleteUser = async (req, res) => {
   const { userId } = req.params;

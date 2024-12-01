@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const categoryManageRoutes = require('./src/routes/Admin/category-manage.routes');
 const userManageRoutes = require('./src/routes/Admin/user-manage.routes');
+const adminRoutes = require('./src/routes/Admin/admin.routes');
 
 const errorHandler = require('./src/middlewares/errorHandler');
 
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/admin', adminRoutes);
 app.use('/book-categories', categoryManageRoutes);
 app.use('/manage-users', userManageRoutes);
 
