@@ -10,6 +10,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "aws-sdk": "^2.895.0",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "express": "^4.21.1",
