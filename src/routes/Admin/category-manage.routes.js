@@ -1,4 +1,4 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
 
 import categoryManageController  from'../../controllers/Admin/category-manage.controller';
@@ -9,5 +9,6 @@ router.post('/create-category', categoryManageController.createCategory);
 router.put('/update-category', categoryManageController.updateCategory);
 router.delete('/delete-category', categoryManageController.deleteCategory);
 
-export default categoryManageRoutes;
+module.exports = categoryManageRoutes;
+
 

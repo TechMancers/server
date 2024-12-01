@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 const userManageController = require('../../controllers/Admin/user-manage.controller');
 
