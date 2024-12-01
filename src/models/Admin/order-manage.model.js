@@ -64,4 +64,4 @@ class BookOrders {
 //   }
 }
 
-export default BookOrders;
+module.exports = { BookOrders };
