@@ -11,4 +11,10 @@ router.get('/books/:bookId/stock', bookController.getBookStock);    //working
 router.post('/books/decrement-stock', bookController.decrementBookStock);  //working
 router.post('/books/increment-stock', bookController.incrementBookStock);// working
 
+//categories.....................
+router.get('/categories', bookController.getAllCategories);   //done
+router.get('/categories/:categoryId', bookController.getCategoryById); //done 
+router.get('/books/category/:categoryId', bookController.getBooksByCategory); //done
+
+
 module.exports = router;

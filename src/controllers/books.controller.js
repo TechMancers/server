@@ -36,25 +36,7 @@ exports.addBook = async (req, res, next) => {
 
 
 
-// exports.updateBook = async (req, res, next) => {
-//   const bookId = req.params.bookId;
-//   const { name, author, price, description, stock, category_id } = req.body;
 
-//   try {
-//     await Book.updateBook(bookId, {
-//       name,
-//       author,
-//       price,
-//       description,
-//       stock,
-//       category_id,
-//     });
-//     res.status(200).json({ message: "Book updated successfully!" });
-//   } catch (error) {
-//     console.error("Error updating book:", error);
-//     next(error);
-//   }
-// };
 exports.updateBook = async (req, res, next) => {
   const bookId = req.params.bookId;
   const { name, author, price, description, stock, category_id } = req.body;
@@ -160,21 +142,7 @@ exports.decrementBookStock = async (req, res, next) => {
   }
 };
 
-// exports.incrementBookStock = async (req, res, next) => {
-//   const { bookId, quantity } = req.body;
 
-//   try {
-//     const result = await Book.incrementBookStock(bookId, quantity);
-//     if (result.affectedRows > 0) {
-//       res.status(200).json({ message: "Book stock incremented successfully!" });
-//     } else {
-//       res.status(400).json({ message: "Unable to increment stock" });
-//     }
-//   } catch (error) {
-//     console.error("Error incrementing book stock:", error);
-//     next(error);
-//   }
-// };
 
 exports.incrementBookStock = async (req, res, next) => {
   const { bookId, quantity } = req.body;
@@ -194,5 +162,45 @@ exports.incrementBookStock = async (req, res, next) => {
   } catch (error) {
       console.error("Error incrementing book stock:", error);
       next(error);
+  }
+};
+
+//category................................................
+
+exports.getAllCategories = async (req, res, next) => {
+  try {
+    const categories = await Book.getAllCategories();
+    res.status(200).json({ categories });
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    next(error);
+  }
+};
+
+exports.getCategoryById = async (req, res, next) => {
+  const categoryId = req.params.categoryId;
+
+  try {
+    const category = await Book.getCategoryById(categoryId);
+    if (category) {
+      res.status(200).json({ category });
+    } else {
+      res.status(404).json({ message: 'Category not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching category:', error);
+    next(error);
+  }
+};
+
+exports.getBooksByCategory = async (req, res, next) => {
+  const categoryId = req.params.categoryId;
+
+  try {
+    const books = await Book.getBooksByCategory(categoryId);
+    res.status(200).json({ books });
+  } catch (error) {
+    console.error('Error fetching books:', error);
+    next(error);
   }
 };
