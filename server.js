@@ -11,9 +11,19 @@ const categoryManageRoutes = require("./src/routes/Admin/category-manage.routes"
 const userManageRoutes = require("./src/routes/Admin/user-manage.routes");
 const adminRoutes = require("./src/routes/Admin/admin.routes");
 
+//janani
+const profilepageRouter = require('./src/routes/Customer/profile-page.routes');
+const editProfileRouter = require('./src/routes/Customer/edit-profile.routes');
+const purchaseHistoryRouter = require('./src/routes/Customer/purchasehistory.routes');
+const wishlistRouter = require('./src/routes/Customer/wishlist.routes');
+const searchBookRouter = require('./src/routes/Customer/search-book.routes')
+
 const errorHandler = require("./src/middlewares/errorHandler");
 
 const {upload, deleteFromS3} = require('./src/middlewares/file-upload');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 app.use(cors());
@@ -21,7 +31,6 @@ app.use(cors());
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -43,8 +52,6 @@ app.post("/upload", (req, res) => {
     res.json({ image: req.file });
   });
 });
-  app.use('/cart', cartRoutes);
-  app.use('/purchase', purchaseRoutes);
 
 app.delete("/delete/:key", (req, res) => {
   const key = req.params.key;
@@ -65,6 +72,16 @@ app.use(errorHandler);
 app.use("/admin", adminRoutes);
 app.use("/book-categories", categoryManageRoutes);
 app.use("/manage-users", userManageRoutes);
+//janani
+app.use('/profile-page', profilepageRouter);
+app.use('/edit-profile', editProfileRouter);
+app.use('/purchasehistory', purchaseHistoryRouter);
+app.use('/wishlist', wishlistRouter);
+app.use('/search-book', searchBookRouter);
+
+//kaumi
+app.use('/cart', cartRoutes);
+app.use('/purchase', purchaseRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
