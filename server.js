@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const cartRoutes = require('./src/routes/cart.routes');
-const purchaseRoutes = require('./src/routes/purchase.routes');
+const cartRoutes = require('./src/routes/Customer/cart.routes');
+const purchaseRoutes = require('./src/routes/Customer/purchase.routes');
 
 
 const app = express();
