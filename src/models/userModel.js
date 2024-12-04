@@ -1,5 +1,5 @@
-const db = require('../../utils/database')
-const transporter = require('../../config/nodemailer')
+const db = require('../utils/database');
+const transporter = require('../config/nodemailer')
 
 
 exports.checkExistingEmail = (email) => {
