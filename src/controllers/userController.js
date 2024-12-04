@@ -1,5 +1,5 @@
-// const userService = require('../services/userService.js');
-const userModel = require('../models/User/UserModel.js');
+
+const userModel = require('../models/userModel.js');
 const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator');
 const bcrypt = require('bcryptjs');
