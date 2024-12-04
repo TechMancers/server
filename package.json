@@ -22,6 +22,8 @@
     "password-validator": "5.3.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7",
+    "supertest": "^7.0.0"
   }
 }
