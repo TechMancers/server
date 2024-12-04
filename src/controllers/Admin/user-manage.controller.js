@@ -1,4 +1,5 @@
 const { ManageUsers } = require("../../models/Admin/admin.model");
+const ErrorFactory = require("../../utils/ErrorFactory");
 
 exports.fetchUsers = async (req, res) => {
   const { search = "", isActive = null, isBanned = null, isSuspended = null, role = null, page = 1, limit = 10  } = req.query;
@@ -10,61 +11,64 @@ exports.fetchUsers = async (req, res) => {
     if (result.success && result.data.length > 0) {
       res.status(200).json(result);
     } else {
-      res.status(404).json({
-        success: false,
-        message: "No users found for the given criteria",
-      });
+      const error = ErrorFactory.createError(
+        "NotFoundError",
+        result.message || "No users found"
+      )
     }
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({
-      success: false,
-      message: "An error occurred while retrieving users",
-      error: error.message,
-    });
+    console.error("Error fetching users:", error);
+    const internalError = ErrorFactory.createError(
+      "InternalServerError",
+      "An error occurred while retrieving users"
+    );
+    res.status(internalError.statusCode).json(internalError.format());
   }
 };
 
 exports.getUserDetails = async (req, res) => {
-  const { userId } = req.params; 
+  const { userId } = req.params;
 
   try {
     const result = await ManageUsers.getUserById(userId);
 
     if (result.success) {
-      res.status(200).json(result); 
+      res.status(200).json(result);
     } else {
-      res.status(404).json({
-        success: false,
-        message: result.message,
-      });
+      const notFoundError = ErrorFactory.createError(
+        "NotFoundError",
+        result.message || "User not found"
+      );
+      res.status(notFoundError.statusCode).json(notFoundError.format());
     }
   } catch (error) {
     console.error("Error fetching user details:", error);
-    res.status(500).json({
-      success: false,
-      message: "An error occurred while retrieving user details",
-      error: error.message,
-    });
+    const internalError = ErrorFactory.createError(
+      "InternalServerError",
+      "An error occurred while retrieving user details"
+    );
+    res.status(internalError.statusCode).json(internalError.format());
   }
 };
 
 exports.getPurchaseHistory = async (req, res) => {
   const { userId } = req.params;
   if (!userId) {
-    return res.status(400).json({
-      success: false,
-      message: "User ID is required",
-    });
+    const error = ErrorFactory.createError(
+      "ValidationError",
+      "User ID is required"
+    );
+    return res.status(error.statusCode).json(error.format());
   }
   try {
     const purchaseHistory = await ManageUsers.getPurchaseHistory(userId);
 
     if (!purchaseHistory || purchaseHistory.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "No purchase history found for the given user",
-      });
+      const error = ErrorFactory.createError(
+        "NotFoundError",
+        "No purchase history found for the given user"
+      )
+      return res.status(error.statusCode).json(error.format());
     }
     const purchasedItems = await Promise.all(
       purchaseHistory.map(async (purchase) => {
@@ -88,12 +92,11 @@ exports.getPurchaseHistory = async (req, res) => {
 
   } catch (error) {
     console.error("Error fetching purchase history:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "An unexpected error occurred while retrieving purchase history",
-      error: error.message,
-    });
+    const internalError = ErrorFactory.createError(
+      "InternalServerError",
+      "An error occurred while updating the category."
+    )
+    res.status(internalError.statusCode).json(internalError.format());
   }
 };
 

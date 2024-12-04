@@ -5,7 +5,7 @@ const categoryManageController = require('../../controllers/Admin/category-manag
 
 router.get('/get-categories', categoryManageController.getCategories);
 router.post('/create-category', categoryManageController.createCategory);
-router.put('/update-category', categoryManageController.updateCategory);
-router.delete('/delete-category', categoryManageController.deleteCategory);
+router.put('/update-category/:category_id', categoryManageController.updateCategory);
+router.delete('/delete-category/:category_id', categoryManageController.deleteCategory);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const { admin } = require("../../models/Admin/admin.model");
+const ErrorFactory = require("../../utils/ErrorFactory");
 
 const passwordValidator = require("password-validator");
 const bcrypt = require("bcryptjs");
@@ -28,18 +29,16 @@ exports.getAdminDetails = async (req, res) => {
         data: result[0],
       });
     } else {
-      res.status(404).json({
-        success: false,
-        message: "Admin not found",
-      });
+      const error = ErrorFactory.createError("NotFoundError", "Admin not found");
+      res.status(error.statusCode).json(error.format());
     }
   } catch (error) {
     console.error("Error fetching admin details:", error);
-    res.status(500).json({
-      success: false,
-      message: "An error occurred while retrieving admin details",
-      error: error.message,
-    });
+    const internalError = ErrorFactory.createError(
+      "InternalServerError",
+      "An error occurred while retrieving admin details"
+    );
+    res.status(internalError.statusCode).json(internalError.format());
   }
 };
 
@@ -62,18 +61,16 @@ exports.updateAdminDetails = async (req, res) => {
         message: result.message,
       });
     } else {
-      res.status(400).json({
-        success: false,
-        message: result.message,
-      });
+      const error = ErrorFactory.createError("ValidationError", result.message);
+      res.status(error.statusCode).json(error.format());
     }
   } catch (error) {
     console.error("Error updating admin details:", error);
-    res.status(500).json({
-      success: false,
-      message: "An error occurred while updating admin details",
-      error: error.message,
-    });
+    const internalError = ErrorFactory.createError(
+      "InternalServerError",
+      "An error occurred while updating admin details"
+    );
+    res.status(internalError.statusCode).json(internalError.format());
   }
 };
 
@@ -83,29 +80,29 @@ exports.updateAdminPassword = async (req, res) => {
 
   try {
     const currentPasswordData = await admin.getAdminPassword(adminId);
-    console.log(currentPasswordData);
-    if (!currentPasswordData) {
-      return res.status(404).json({
-        success: false,
-        message: "Admin not found.",
-      });
-    }
-    const currentPasswordHash = currentPasswordData.password_hash;
 
+    if (!currentPasswordData) {
+      const error = ErrorFactory.createError("NotFoundError", "Admin not found");
+      return res.status(error.statusCode).json(error.format());
+    }
+
+    const currentPasswordHash = currentPasswordData.password_hash;
     const isSamePassword = await bcrypt.compare(password, currentPasswordHash);
+
     if (isSamePassword) {
-      return res.status(400).json({
-        success: false,
-        message: "New password cannot be the same as the old password.",
-      });
+      const error = ErrorFactory.createError(
+        "ValidationError",
+        "New password cannot be the same as the old password."
+      );
+      return res.status(error.statusCode).json(error.format());
     }
 
     if (!schema.validate(password)) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Password does not meet security requirements. It must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, one digit, and one special character.",
-      });
+      const error = ErrorFactory.createError(
+        "ValidationError",
+        "Password does not meet security requirements. It must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, one digit, and one special character."
+      );
+      return res.status(error.statusCode).json(error.format());
     }
 
     const saltRounds = 10;
@@ -119,17 +116,16 @@ exports.updateAdminPassword = async (req, res) => {
         message: "Password updated successfully.",
       });
     } else {
-      res.status(400).json({
-        success: false,
-        message: result.message,
-      });
+      const error = ErrorFactory.createError("ValidationError", result.message);
+      res.status(error.statusCode).json(error.format());
     }
   } catch (error) {
     console.error("Error updating admin password:", error);
-    res.status(500).json({
-      success: false,
-      message: "An error occurred while updating the password.",
-      error: error.message,
-    });
+    const internalError = ErrorFactory.createError(
+      "InternalServerError",
+      "An error occurred while updating the password."
+    );
+    res.status(internalError.statusCode).json(internalError.format());
   }
 };
+ 
