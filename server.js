@@ -21,9 +21,6 @@ const searchBookRouter = require('./src/routes/Customer/search-book.routes')
 const errorHandler = require("./src/middlewares/errorHandler");
 
 const {upload, deleteFromS3} = require('./src/middlewares/file-upload');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 
 const app = express();
 app.use(cors());
