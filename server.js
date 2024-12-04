@@ -2,6 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+//kaumi
+const cartRoutes = require('./src/routes/Customer/cart.routes');
+const purchaseRoutes = require('./src/routes/Customer/purchase.routes');
+
+//buddhi
 const categoryManageRoutes = require("./src/routes/Admin/category-manage.routes");
 const userManageRoutes = require("./src/routes/Admin/user-manage.routes");
 const adminRoutes = require("./src/routes/Admin/admin.routes");
@@ -38,6 +43,8 @@ app.post("/upload", (req, res) => {
     res.json({ image: req.file });
   });
 });
+  app.use('/cart', cartRoutes);
+  app.use('/purchase', purchaseRoutes);
 
 app.delete("/delete/:key", (req, res) => {
   const key = req.params.key;
