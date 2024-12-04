@@ -5,7 +5,6 @@ const passwordValidator = require('password-validator');
 const bcrypt = require('bcryptjs');
 const schema = new passwordValidator();
 const tokengenerator = require('../config/createToken');
-const axios = require('axios');
 
 schema
     .is().min(8)
