@@ -18,6 +18,9 @@ const purchaseHistoryRouter = require('./src/routes/Customer/purchasehistory.rou
 const wishlistRouter = require('./src/routes/Customer/wishlist.routes');
 const searchBookRouter = require('./src/routes/Customer/search-book.routes')
 
+//gihan
+const userRoutes = require('./src/routes/userRoutes');
+
 const errorHandler = require("./src/middlewares/errorHandler");
 
 const {upload, deleteFromS3} = require('./src/middlewares/file-upload');
@@ -79,6 +82,9 @@ app.use('/search-book', searchBookRouter);
 //kaumi
 app.use('/cart', cartRoutes);
 app.use('/purchase', purchaseRoutes);
+
+//gihan
+app.use('/user', userRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

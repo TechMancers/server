@@ -9,4 +9,23 @@ const pool = mysql.createPool({
   password: config.password,
 });
 
+const query = (sql, values) => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      connection.query(sql, values, (err, results) => {
+        connection.release(); // Release the connection
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(results);
+      });
+    });
+  });
+};
+
 module.exports = pool.promise();
