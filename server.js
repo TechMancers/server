@@ -12,11 +12,11 @@ const userManageRoutes = require("./src/routes/Admin/user-manage.routes");
 const adminRoutes = require("./src/routes/Admin/admin.routes");
 
 //janani
-const profilepageRouter = require('./src/routes/Customer/profile-page.routes');
-const editProfileRouter = require('./src/routes/Customer/edit-profile.routes');
-const purchaseHistoryRouter = require('./src/routes/Customer/purchasehistory.routes');
-const wishlistRouter = require('./src/routes/Customer/wishlist.routes');
-const searchBookRouter = require('./src/routes/Customer/search-book.routes')
+const profilepageRouter = require('./src/routes/Customer/profile-page.routes.js');
+const editProfileRouter = require('./src/routes/Customer/edit-profile.routes.js');
+const wishlistRouter = require('./src/routes/Customer/wishlist.routes.js');
+const searchBookRouter = require('./src/routes/Customer/search-book.routes.js');
+const orderManageRoutes = require('./src/routes/Admin/order-manage.routes');
 
 //gihan
 const userRoutes = require('./src/routes/userRoutes');
@@ -26,20 +26,20 @@ const errorHandler = require("./src/middlewares/errorHandler");
 const {upload, deleteFromS3} = require('./src/middlewares/file-upload');
 
 const app = express();
-app.use(cors());
-
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+// Set headers for CORS
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization,uploadType, folder, subfolder"
-  );
-  next();
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Content-Type, Authorization, uploadType, folder, subfolder'
+    );
+    next();
 });
 
 app.post("/upload", (req, res) => {
@@ -75,14 +75,12 @@ app.use("/manage-users", userManageRoutes);
 //janani
 app.use('/profile-page', profilepageRouter);
 app.use('/edit-profile', editProfileRouter);
-app.use('/purchasehistory', purchaseHistoryRouter);
 app.use('/wishlist', wishlistRouter);
 app.use('/search-book', searchBookRouter);
-
+app.use('/manage-orders', orderManageRoutes);
 //kaumi
 app.use('/cart', cartRoutes);
 app.use('/purchase', purchaseRoutes);
-
 //gihan
 app.use('/user', userRoutes);
 

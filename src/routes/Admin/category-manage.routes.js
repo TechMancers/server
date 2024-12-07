@@ -9,3 +9,4 @@ router.put('/update-category/:category_id', categoryManageController.updateCateg
 router.delete('/delete-category/:category_id', categoryManageController.deleteCategory);
 
 module.exports = router;
+
