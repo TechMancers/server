@@ -1,4 +1,4 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
 const userManageController = require('../../controllers/Admin/user-manage.controller');
 
@@ -9,5 +9,4 @@ router.patch('/users/:userId/state', userManageController.updateUserState);
 router.delete('/users/:userId', userManageController.deleteUser);
 router.patch('/users/:userId/suspend', userManageController.suspendUser);
 
-
-export default userManageRoutes;
+module.exports = router;

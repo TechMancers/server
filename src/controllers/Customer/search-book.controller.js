@@ -1,10 +1,11 @@
 const searchBookModel = require("../../models/Customer/search-book.model");
 
 exports.searchBooks = async (req, res) => {
-  const searchTerm = req.query.term || ""; // Get search term from query
+  const {searchTerm=""} = req.query
+  console.log("searchTerm", searchTerm);
   const selectedCategories = req.query.categories 
     ? req.query.categories.split(",") 
-    : []; // Convert category IDs to array
+    : [];
 
   try {
     const books = await searchBookModel.searchBooks(searchTerm, selectedCategories);
