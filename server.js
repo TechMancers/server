@@ -11,6 +11,8 @@ const categoryManageRoutes = require("./src/routes/Admin/category-manage.routes"
 const userManageRoutes = require("./src/routes/Admin/user-manage.routes");
 const adminRoutes = require("./src/routes/Admin/admin.routes");
 
+const bookPreviewRoutes = require('./src/routes/Customer/book-preview.routes');
+
 //janani
 const profilepageRouter = require('./src/routes/Customer/profile-page.routes.js');
 const editProfileRouter = require('./src/routes/Customer/edit-profile.routes.js');
@@ -68,10 +70,12 @@ app.delete("/delete/:key", (req, res) => {
 
 app.use(errorHandler);
 
-//admin
+//buddhi
 app.use("/admin", adminRoutes);
 app.use("/book-categories", categoryManageRoutes);
 app.use("/manage-users", userManageRoutes);
+
+app.use("/book-preview", bookPreviewRoutes);
 //janani
 app.use('/profile-page', profilepageRouter);
 app.use('/edit-profile', editProfileRouter);
