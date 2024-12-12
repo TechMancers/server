@@ -37,7 +37,7 @@ class PurchaseHistory {
             b.name AS book_name,
             b.author AS book_author,
             b.price AS book_price,
-            b.cover_image AS book_cover_image,
+            b.cover_image AS cover_image,
             b.description AS book_description
           FROM 
             cart_item ci
