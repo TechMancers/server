@@ -15,6 +15,7 @@ exports.searchBooks = async (searchTerm, selectedCategories) => {
         b.author AS author_name,
         b.price AS book_price,
         b.description AS book_description,
+        b.cover_image AS book_cover_image,
         b.stock AS book_stock,
         c.name AS category_name,
         b.category_id
