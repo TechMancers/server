@@ -16,18 +16,18 @@ exports.getCategories = async (req, res) => {
 };
 
 exports.createCategory = async (req, res) => {
-  const { category_name } = req.body;
+  const { name } = req.body;
 
-  if (!category_name) {
+  if (!name) {
     const error = ErrorFactory.createError(
       "ValidationError",
-      "'category_name' is required."
+      "'name' is required."
     );
     return res.status(error.statusCode).json(error.format());
   }
 
   try {
-    const result = await BookCategories.createCategory(category_name);
+    const result = await BookCategories.createCategory(name);
 
     if (result.success) {
       res.status(201).json(result);
@@ -50,18 +50,18 @@ exports.createCategory = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
   const { category_id } = req.params;
-  const { category_name } = req.body;
+  const { name } = req.body;
 
-  if (!category_id || !category_name) {
+  if (!category_id || !name) {
     const error = ErrorFactory.createError(
       "ValidationError",
-      "Both 'category_id' and 'category_name' are required."
+      "Both 'category_id' and 'name' are required."
     );
     return res.status(error.statusCode).json(error.format());
   }
 
   try {
-    const result = await BookCategories.updateCategory(category_id, category_name);
+    const result = await BookCategories.updateCategory(category_id, name);
 
     if (result.success) {
       res.status(200).json(result);
