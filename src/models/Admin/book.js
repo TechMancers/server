@@ -1,17 +1,34 @@
 const db = require("../../utils/database");
 
 module.exports = class Book {
-    static async addBook(name, author, price, description, stock, category_id) {
-        return db.execute(
-          `INSERT INTO book (name, author, price, description, stock, category_id)
-           VALUES (?, ?, ?, ?, ?, ?)`,
-          [name, author, price, description, stock, category_id]
-        );
-      }
+  static async generateBookId() { 
+    const query = `
+      UPDATE id_tracker 
+      SET last_id = last_id + 1 
+      WHERE table_name = 'book';
+    `;
+    await db.execute(query);
+
+    const [[{ last_id }]] = await db.execute(
+      `SELECT last_id FROM id_tracker WHERE table_name = 'book'`
+    );
+
+    return `Bo-${last_id.toString().padStart(4, '0')}`;
+  }
 
 
+  static async addBook(name, author, price, description, stock, category_id) {
+    const bookId = await this.generateBookId();  // Generate unique book ID
+    const query = `
+      INSERT INTO book (book_id, name, author, price, description, stock, category_id)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
+    const result = await db.execute(query, [bookId, name, author, price, description, stock, category_id]);
+    return result;
+  }
 
 
+  
 
   static async updateBook(bookId, book) {
     const query = `

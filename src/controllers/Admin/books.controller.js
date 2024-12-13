@@ -2,13 +2,14 @@ const Book = require("../../models/Admin/book");
 
 
 exports.addBook = async (req, res, next) => {
-  try { 
-    // Log the incoming request body for debugging
+  try {
+    // Log the incoming request body for debugging purposes
     console.log("Request Body:", req.body);
 
-    // Destructure and validate request body
+    // Destructure and validate the request body
     const { name, author, price, description, stock, category_id } = req.body;
 
+    // Validate that all required fields are present
     if (!name || !author || !price || !stock || !category_id) {
       return res.status(400).json({ message: "All fields are required!" });
     }
@@ -23,15 +24,14 @@ exports.addBook = async (req, res, next) => {
       category_id
     );
 
-    // Send success response
+    // Send a success response with the result
     res.status(201).json({ message: "Book added successfully!", data: result });
   } catch (error) {
-    // Log and pass the error to the error handler
+    // Log the error and pass it to the error handler
     console.error("Error adding book:", error);
     next(error);
   }
 };
-
 
 
 

@@ -2,8 +2,8 @@ const express= require('express');
 const router = express.Router();
 const bookController= require('../../controllers/Admin/books.controller');
 
-router.post('/books',bookController.addBook); // working
-router.put('/update-books/:bookId',bookController.updateBook); // working 
+router.post('/add',bookController.addBook); // working //frontend checked
+router.put('/update/:bookId',bookController.updateBook); // working //frontend checked
 router.delete('/delete-book/:bookId', bookController.deleteBook);  //working
 router.get('/books/:bookId', bookController.getBookById);   //working
 router.get('/books', bookController.getBooks);               //working
