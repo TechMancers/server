@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const userRoutes = require('./src/routes/userRoutes');
 const bookCardRoutes = require('./src/routes/Customer/bookCardRoutes');
+const categoriesRouter = require('./src/routes/Customer/category.routes');
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 
 app.use('/user', userRoutes);
 app.use('/book-card', bookCardRoutes);
+app.use('/categories', categoriesRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port${port}`);
