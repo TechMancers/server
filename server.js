@@ -22,6 +22,8 @@ const orderManageRoutes = require('./src/routes/Admin/order-manage.routes');
 
 //gihan
 const userRoutes = require('./src/routes/userRoutes');
+const bookCardRoutes = require('./src/routes/Customer/bookCardRoutes');
+const categoriesRouter = require('./src/routes/Customer/category.routes');
 
 const errorHandler = require("./src/middlewares/errorHandler");
 
@@ -93,6 +95,8 @@ app.use('/cart', cartRoutes);
 app.use('/purchase', purchaseRoutes);
 //gihan
 app.use('/user', userRoutes);
+app.use('/book-card', bookCardRoutes);
+app.use('/categories', categoriesRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
