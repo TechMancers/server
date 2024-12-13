@@ -1,4 +1,3 @@
-
 const userModel = require('../models/userModel.js');
 const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator');
