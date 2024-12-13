@@ -10,7 +10,7 @@ class PurchaseHistory {
             ph.purchase_id,
             ph.description,
             ph.pNumber AS phone_number,
-            ph.paymentMethod AS payment_method,
+            ph.paymentMethod AS paymentMethod,
             ph.address,
             ph.purchase_datetime
           FROM 
