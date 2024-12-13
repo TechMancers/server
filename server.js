@@ -26,6 +26,8 @@ const userRoutes = require('./src/routes/userRoutes');
 const errorHandler = require("./src/middlewares/errorHandler");
 
 const {upload, deleteFromS3} = require('./src/middlewares/file-upload');
+// dhanushka admin 
+const bookControllerRouter = require('./src/routes/Admin/book.routes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -74,6 +76,10 @@ app.use(errorHandler);
 app.use("/admin", adminRoutes);
 app.use("/book-categories", categoryManageRoutes);
 app.use("/manage-users", userManageRoutes);
+//admin dhanushka
+// const bookControllerRouter = require('./src/routes/Admin/book');
+app.use('/Update-book-details', bookControllerRouter);
+
 
 app.use("/book-preview", bookPreviewRoutes);
 //janani
