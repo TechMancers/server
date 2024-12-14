@@ -1,14 +1,15 @@
-const CustomerProfile = require('../../../models/Customer/profile-page.model');
-const { getAllCustomers, deactivateCustomer } = require('../../../controllers/Customer/profile-page.controller');
+// Tests/Customer/ProfilePageController.test.js
+const ProfilePageController = require('../../../controllers/Customer/profile-page.controller.js');
+const ProfilePageModel = require('../../../models/Customer/profile-page.model.js');
 
-jest.mock('../../../models/Customer/profile-page.model', () => ({
+jest.mock('../../../models/Customer/profile-page.model.js', () => ({
   fetchAll: jest.fn(),
   deactivateUser: jest.fn(),
 }));
 
 jest.spyOn(console, 'error').mockImplementation(() => {}); // Silence error logs
 
-describe('CustomerProfile Controller Tests', () => {
+describe('ProfilePageController', () => {
   let req, res, next;
 
   beforeEach(() => {
@@ -22,45 +23,62 @@ describe('CustomerProfile Controller Tests', () => {
   });
 
   describe('getAllCustomers', () => {
-    it('should return the first customer with status 200', async () => {
-      const mockCustomers = [{ id: 1, name: 'John Doe' }];
-      CustomerProfile.fetchAll.mockResolvedValue(mockCustomers);
+    const mockCustomer = {
+      fName: 'John',
+      LName: 'Doe',
+      address: '123 Art Street',
+      joined_date: '2024-11-21T18:30:00.000Z',
+      total_wishlist_items: 1,
+      total_purchases: 17,
+      email: 'john.doe@example.com',
+      phone: '555-1234',
+    };
 
-      await getAllCustomers(req, res, next);
+    it('should return the first customer with status 200', async () => {
+      ProfilePageModel.fetchAll.mockResolvedValue([mockCustomer]);
+
+      await ProfilePageController.getAllCustomers(req, res, next);
 
       expect(res.status).toHaveBeenCalledWith(200);
-      // Adjusted to check only the first customer, as per controller behavior
-      expect(res.json).toHaveBeenCalledWith(mockCustomers[0]);
+      expect(res.json).toHaveBeenCalledWith(mockCustomer); // First customer
+      expect(next).not.toHaveBeenCalled();
     });
 
     it('should handle errors and call next with an error', async () => {
       const error = new Error('Database error');
-      CustomerProfile.fetchAll.mockRejectedValue(error);
+      ProfilePageModel.fetchAll.mockRejectedValue(error);
 
-      await getAllCustomers(req, res, next);
+      await ProfilePageController.getAllCustomers(req, res, next);
 
+      expect(res.status).not.toHaveBeenCalled();
+      expect(res.json).not.toHaveBeenCalled();
       expect(next).toHaveBeenCalledWith(error);
     });
   });
 
   describe('deactivateCustomer', () => {
-    it('should deactivate a user and return success message', async () => {
+    beforeEach(() => {
       req.params.id = 1;
-      CustomerProfile.deactivateUser.mockResolvedValue(true);
+    });
 
-      await deactivateCustomer(req, res, next);
+    it('should deactivate a user and return success message', async () => {
+      ProfilePageModel.deactivateUser.mockResolvedValue(true);
+
+      await ProfilePageController.deactivateCustomer(req, res, next);
 
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({ message: 'User deactivated successfully' });
+      expect(next).not.toHaveBeenCalled();
     });
 
     it('should handle errors and call next with an error', async () => {
       const error = new Error('Deactivation error');
-      req.params.id = 1;
-      CustomerProfile.deactivateUser.mockRejectedValue(error);
+      ProfilePageModel.deactivateUser.mockRejectedValue(error);
 
-      await deactivateCustomer(req, res, next);
+      await ProfilePageController.deactivateCustomer(req, res, next);
 
+      expect(res.status).not.toHaveBeenCalled();
+      expect(res.json).not.toHaveBeenCalled();
       expect(next).toHaveBeenCalledWith(error);
     });
   });
