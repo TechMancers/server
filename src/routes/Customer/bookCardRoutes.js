@@ -4,6 +4,7 @@ const bookCardController =require('../../controllers/Customer/bookCardController
 
 
 router.get('/', bookCardController.getBestSellingBooks);
+router.get('/books', bookCardController.getBooks);
 
 
 
