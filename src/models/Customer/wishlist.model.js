@@ -11,8 +11,9 @@ class CustomerWishList {
           b.author AS book_author,
           b.price AS book_price,
           b.description AS book_description,
+          b.cover_image AS book_img_url,
           b.stock AS available_stock,
-          c.name AS category_name
+          c.name AS category_namew
         FROM 
           wishlist w
         INNER JOIN 

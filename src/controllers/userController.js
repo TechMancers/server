@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator');
 const bcrypt = require('bcryptjs');
 const schema = new passwordValidator();
-const tokengenerator = require('../config/createToken');
+const tokengenerator = require('../config/createToken.js');
 
 schema
     .is().min(8)
