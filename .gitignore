@@ -42,3 +42,8 @@ testem.log
 Thumbs.db
 
 .env
+
+#docker files
+node_modules
+npm-debug. log
+.env
