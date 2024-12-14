@@ -6,7 +6,7 @@ class ManageUsers {
     const offset = parseInt((page - 1) * limit, 10);
     const limitInt = parseInt(limit, 10);
   
-    console.log("Query Params in model:", { search, isActive, role, page, limit, offset });
+    console.log("Query Params in model:", { search, isActive, isBanned, isSuspended, role, page, limit, offset });
   
     try {
       const filters = [];

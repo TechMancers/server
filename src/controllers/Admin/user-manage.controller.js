@@ -1,9 +1,9 @@
-const { ManageUsers } = require("../../models/Admin/admin.model");
+const { ManageUsers } = require("../../models/Admin/user-manage.model");
 const ErrorFactory = require("../../utils/ErrorFactory");
 
 exports.fetchUsers = async (req, res) => {
   const { search = "", isActive = null, isBanned = null, isSuspended = null, role = null, page = 1, limit = 10  } = req.query;
-  console.log("Query Params in controller:", { search, isActive, role, page, limit });
+  console.log("Query Params in controller:", { search, isActive, isSuspended, isBanned, role, page, limit });
 
   try {
     const result = await ManageUsers.fetchUsers(search, isActive, isBanned, isSuspended, role, page, limit);
