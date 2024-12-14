@@ -9,7 +9,7 @@ class Book {
           b.book_id,
           b.name AS book_name,
           b.price AS book_price,
-          b.cover_image AS book_image_url,
+          b.cover_image AS book_img_url,
           b.author AS author_name,
           SUM(ci.quantity) AS total_sold
        FROM 
@@ -35,7 +35,7 @@ class Book {
          b.book_id,
          b.name AS book_name,
          b.price AS book_price,
-         b.cover_image AS book_image_url,
+         b.cover_image AS book_img_url,
          b.author AS author_name
       FROM 
          book b
