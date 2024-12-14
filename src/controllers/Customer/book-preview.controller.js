@@ -9,7 +9,7 @@ exports.getBookDetails = async (req, res) => {
 
   try {
     const result = await bookPreview.getBookDetails(book_id);
-
+    console.log(result);
     if (result.length > 0) {
       res.status(200).json({
         success: true,
