@@ -3,11 +3,9 @@ const ErrorFactory = require("../../utils/ErrorFactory");
 
 exports.fetchUsers = async (req, res) => {
   const { search = "", isActive = null, isBanned = null, isSuspended = null, role = null, page = 1, limit = 10  } = req.query;
-  console.log("Query Params in controller:", { search, isActive, isSuspended, isBanned, role, page, limit });
 
   try {
     const result = await ManageUsers.fetchUsers(search, isActive, isBanned, isSuspended, role, page, limit);
-
     if (result.success && result.data.length > 0) {
       res.status(200).json(result);
     } else {

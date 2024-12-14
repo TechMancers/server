@@ -2,6 +2,7 @@ const db = require("../../utils/database");
 
 class bookPreview {
   static async getBookDetails(book_id) {
+    console.log("book_id in model", book_id);
     const query = `SELECT book.*, category.name as category_name FROM book LEFT JOIN category ON book.category_id = category.category_id WHERE book.book_id = ?`;
     const [rows] = await db.execute(query, [book_id]);
     return rows;

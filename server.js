@@ -19,6 +19,7 @@ const editProfileRouter = require('./src/routes/Customer/edit-profile.routes.js'
 const wishlistRouter = require('./src/routes/Customer/wishlist.routes.js');
 const searchBookRouter = require('./src/routes/Customer/search-book.routes.js');
 const orderManageRoutes = require('./src/routes/Admin/order-manage.routes');
+const purchaseHistoryRouter = require('./src/routes/Customer/purchasehistory.routes.js');
 
 //gihan
 const userRoutes = require('./src/routes/userRoutes');
@@ -90,6 +91,8 @@ app.use('/edit-profile', editProfileRouter);
 app.use('/wishlist', wishlistRouter);
 app.use('/search-book', searchBookRouter);
 app.use('/manage-orders', orderManageRoutes);
+app.use('/purchasehistory', purchaseHistoryRouter);
+
 //kaumi
 app.use('/cart', cartRoutes);
 app.use('/purchase', purchaseRoutes);
