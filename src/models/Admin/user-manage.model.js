@@ -6,8 +6,6 @@ class ManageUsers {
     const offset = parseInt((page - 1) * limit, 10);
     const limitInt = parseInt(limit, 10);
   
-    console.log("Query Params in model:", { search, isActive, isBanned, isSuspended, role, page, limit, offset });
-  
     try {
       const filters = [];
       const values = [];
@@ -75,7 +73,7 @@ class ManageUsers {
                 ph.purchase_id,
                 ph.description,
                 ph.pNumber AS phone_number,
-                ph.paymentMethod AS payment_method,
+                ph.paymentMethod AS paymentMethod,
                 ph.address,
                 ph.purchase_datetime
               FROM 
@@ -101,7 +99,8 @@ class ManageUsers {
                 b.name AS book_name,
                 b.author AS book_author,
                 b.price AS book_price,
-                b.description AS book_description
+                b.description AS book_description,
+                b.cover_image AS cover_image
               FROM 
                 cart_item ci
               JOIN 
