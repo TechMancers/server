@@ -23,14 +23,25 @@ describe('ProfilePageController', () => {
 
   describe('getAllCustomers', () => {
     it('should return the first customer with status 200', async () => {
-      const mockCustomers = [{ id: 1, name: 'John Doe' }];
+      const mockCustomers = [
+        {
+          fName: 'John',
+          LName: 'Doe',
+          address: '123 Art Street',
+          joined_date: '2024-11-21T18:30:00.000Z',
+          total_wishlist_items: 1,
+          total_purchases: 17,
+          email: 'john.doe@example.com',
+          phone: '555-1234',
+        },
+      ];
       const ProfilePageModel = require('../../../models/Customer/profile-page.model.js');
       ProfilePageModel.fetchAll.mockResolvedValue(mockCustomers);
 
       await ProfilePageController.getAllCustomers(req, res, next);
 
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith(mockCustomers[0]);
+      expect(res.json).toHaveBeenCalledWith(mockCustomers[0]); // Check for the first customer
     });
 
     it('should handle errors and call next with an error', async () => {
