@@ -1,5 +1,5 @@
 // Tests/Customer/categoryController.test.js
-const categoryController = require('../../../controllers/Customer/category.controller');
+const categoryController = require('../../../controllers/Customer/category.controller.js');
 const db = require('../../../utils/database');
 
 // Mock the database execution method

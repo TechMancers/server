@@ -6,7 +6,7 @@ const cors = require("cors");
 const cartRoutes = require('./src/routes/Customer/cart.routes');
 const purchaseRoutes = require('./src/routes/Customer/purchase.routes');
 
-//buddhi
+//buddhi3
 const categoryManageRoutes = require("./src/routes/Admin/category-manage.routes");
 const userManageRoutes = require("./src/routes/Admin/user-manage.routes");
 const adminRoutes = require("./src/routes/Admin/admin.routes");
@@ -32,7 +32,7 @@ const {upload, deleteFromS3} = require('./src/middlewares/file-upload');
 const bookControllerRouter = require('./src/routes/Admin/book.routes');
 
 const app = express();
-const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -98,6 +98,13 @@ app.use('/user', userRoutes);
 app.use('/book-card', bookCardRoutes);
 app.use('/categories', categoriesRouter);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+// Export the app for testing
+module.exports = app;
+
+// Start the server only if the file is run directly
+if (require.main === module) {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+  });
+}
