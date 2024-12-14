@@ -28,6 +28,13 @@ app.use((req, res, next) => {
   next();
 });
 
+// Define a route for the root path
+app.get('/', (req, res) => {
+  res.send('Welcome to the application!');
+});
+
+
+
 app.post("/upload", (req, res) => {
   upload(req, res, (err) => {
     if (err) {
